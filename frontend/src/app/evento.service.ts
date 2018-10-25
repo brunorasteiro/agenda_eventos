@@ -9,9 +9,7 @@ import { MessageService } from './message.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 
-    'Content-Type': 'application/json',
-    //'Access-Control-Allow-Origin' : '*',
-    //'Access-Control-Allow-Headers': 'Content-Type'
+    'Content-Type': 'application/json'
   })
 };
 
@@ -20,7 +18,7 @@ const httpOptions = {
 })
 
 export class EventoService {
-  private eventosUrl = 'http://127.0.0.1:8000/evento';  // URL to web api
+  private eventosUrl = 'http://localhost:8000/evento';  // URL to web api
   
   teste: Evento[];
 
@@ -37,7 +35,7 @@ export class EventoService {
       );
   }
 
-  /** GET hero by id. Will 404 if id not found */
+  /** GET evento by id. Will 404 if id not found */
   getEvento(id: number): Observable<Evento> {
     const url = `${this.eventosUrl}/${id}`;
     return this.http.get<Evento>(url)
@@ -46,8 +44,36 @@ export class EventoService {
         catchError(this.handleError<Evento>(`getEvento id=${id}`))
       );
   }
+  
+  /** PUT: update the evento on the server */
+  updateEvento (evento: Evento): Observable<any> {
+    const url = `${this.eventosUrl}/${evento.id}/`;
+    return this.http.put(url, evento, httpOptions).pipe(
+      tap(_ => this.log(`updated evento id=${evento.id}`)),
+      catchError(this.handleError<any>('updateEvento'))
+    );
+  }
 
-  /** Log a HeroService message with the MessageService */
+  /** POST: add a new evento to the server */
+  addEvento (evento: Evento): Observable<Evento> {
+    return this.http.post<Evento>(`${this.eventosUrl}/`, evento, httpOptions).pipe(
+      tap((evento: Evento) => this.log(`added evento w/ id=${evento.id}`)),
+      catchError(this.handleError<Evento>('addEvento'))
+    );
+  }
+
+  /** DELETE: delete the evento from the server */
+  deleteEvento (evento: Evento | number): Observable<Evento> {
+    const id = typeof evento === 'number' ? evento : evento.id;
+    const url = `${this.eventosUrl}/${id}`;
+
+    return this.http.delete<Evento>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted evento id=${id}`)),
+      catchError(this.handleError<Evento>('deleteEvento'))
+    );
+  }
+
+  /** Log a EventoService message with the MessageService */
   private log(message: string) {
     this.messageService.add(`EventoService: ${message}`);
   }

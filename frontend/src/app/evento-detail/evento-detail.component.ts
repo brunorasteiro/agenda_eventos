@@ -25,6 +25,15 @@ export class EventoDetailComponent implements OnInit {
       .subscribe(evento => this.evento = evento);
   }
 
+  save(): void {
+    this.eventoService.updateEvento(this.evento)
+      .subscribe(() => this.goBack());
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
   ngOnInit() {
     this.getEvento();
   }

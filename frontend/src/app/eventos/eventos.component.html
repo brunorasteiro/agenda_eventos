@@ -1,3 +1,23 @@
+<div>
+  <label>Descricao:
+    <input #descricao />
+  </label>
+  <label>Inicio:
+    <input type="datetime-local" #inicio />
+  </label>
+  <label>Fim:
+    <input type="datetime-local" #fim />
+  </label>
+  
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(descricao.value, inicio.value, fim.value);">
+                   <!-- descricao.value='';
+                   inicio.value='';
+                   fim.value=''"> -->
+    add
+  </button>
+</div>
+
 <h2>Eventos cadastrados</h2>
 <ul class="eventos">
   <li *ngFor="let evento of eventos">

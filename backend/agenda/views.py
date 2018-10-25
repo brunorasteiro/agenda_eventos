@@ -30,7 +30,11 @@ class EventoViewSet(viewsets.ModelViewSet):
 		if events.count() > 0:
 			raise APIException(detail='Sobreposição de horário.', code='400')			
 		else:
-			serializer.save(owner=self.request.user)
+			#// TODO Tirar essa porra 
+			owner = User.objects.get(id=1)
+			#serializer.save(owner=self.request.user)
+			serializer.save(owner=owner)
+			
 
 	def perform_update(self, serializer):
 		import dateutil.parser
@@ -49,7 +53,10 @@ class EventoViewSet(viewsets.ModelViewSet):
 		if events.count() > 0:
 			raise APIException(detail='Sobreposição de horário.', code='400')			
 		else:
-			serializer.save(owner=self.request.user)
+			#// TODO Tirar essa porra 
+			owner = User.objects.get(id=1)
+			#serializer.save(owner=self.request.user)
+			serializer.save(owner=owner)
 	
 	#def get_paginated_response(self, data):
     #   return Response(data)
