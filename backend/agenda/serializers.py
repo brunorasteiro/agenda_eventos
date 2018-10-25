@@ -12,4 +12,6 @@ class UserSerializer(serializers.ModelSerializer):
 class EventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evento
-        fields = ('descricao', 'inicio', 'fim')
+        fields = ('id', 'descricao', 'inicio', 'fim')
+        read_only_fields = ('id',)
+        

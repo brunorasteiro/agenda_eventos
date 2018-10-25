@@ -1,0 +1,13 @@
+<button (click)="goBack()">go back</button>
+<!-- <button (click)="save()">save</button>
+ -->
+<div *ngIf="evento">
+
+  <h2>Details</h2>
+  <div>
+    <label>Descrição:
+      <input [(ngModel)]="evento.descricao" placeholder="descricao"/>
+    </label>
+  </div>
+
+</div>

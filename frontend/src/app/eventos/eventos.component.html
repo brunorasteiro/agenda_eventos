@@ -1,0 +1,10 @@
+<h2>Eventos cadastrados</h2>
+<ul class="eventos">
+  <li *ngFor="let evento of eventos">
+    <a routerLink="/evento/{{evento.id}}">
+      {{evento.inicio}} - {{evento.descricao}}
+    </a>
+    <!-- <button class="delete" title="delete hero"
+      (click)="delete(hero)">x</button> -->
+  </li>
+</ul>

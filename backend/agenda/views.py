@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+#from rest_framework.response import Response
 from django.contrib.auth.models import User
 from agenda.models import Evento
 from agenda.serializers import *
@@ -11,7 +12,6 @@ class UserViewSet(viewsets.ModelViewSet):
 class EventoViewSet(viewsets.ModelViewSet):
 	queryset = Evento.objects.all()
 	serializer_class = EventoSerializer
-
 		
 	def perform_create(self, serializer):
 		import dateutil.parser
@@ -50,3 +50,6 @@ class EventoViewSet(viewsets.ModelViewSet):
 			raise APIException(detail='Sobreposição de horário.', code='400')			
 		else:
 			serializer.save(owner=self.request.user)
+	
+	#def get_paginated_response(self, data):
+    #   return Response(data)
